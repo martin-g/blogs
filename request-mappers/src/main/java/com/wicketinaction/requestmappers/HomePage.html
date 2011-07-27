@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	
+	<head>
+		<title>Home page</title>
+	</head>
+	
+	<body>
+	   
+        <div>
+            <h3>MountedMapper</h3>
+            <a wicket:id="listParamsLink">Lists all named and indexed parameters</a><br/>
+            <a wicket:id="placeholdersLink">Named parameters with placeholders (look like indexed)</a><br/>
+            <a wicket:id="placeholdersOptionalLink">Named parameters with placeholders (look like indexed) with optional 'named2'</a>
+        </div>
+        
+        <div>
+            <h3>BookmarkableMapper</h3>
+            <a wicket:id="bookarkableLink">A link to not-mounted page</a>
+        </div>
+        
+        
+        <div>
+            <h3>PackageMapper</h3>
+            <a wicket:id="packagePage1">A link Page1</a><br/>
+            <a wicket:id="packagePage2">A link Page2</a><br/>
+            <a href="package/Page3">A link non-existing Page3</a><br/>
+        </div>
+        
+        
+	</body>
+	
+</html>
