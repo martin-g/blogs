@@ -25,7 +25,7 @@ public class HomePage extends WebPage
 		Form<Article> form = new Form<Article>("form", new CompoundPropertyModel<Article>(new Article()));
 		add(form);
 
-		TextField<String> header = new TextField<String>("header");
+		TextField<String> title = new TextField<String>("title");
 		TextArea<String> content = new TextArea<String>("content");
 
 		HandlebarsButton<Article> update = new HandlebarsButton<Article>("update", "article-template", ".article")
@@ -38,7 +38,7 @@ public class HomePage extends WebPage
 			}
 		};
 
-		form.add(header, content, update);
+		form.add(title, content, update);
     }
 
 	/**

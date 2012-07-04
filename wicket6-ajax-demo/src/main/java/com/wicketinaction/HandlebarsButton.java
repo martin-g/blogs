@@ -40,6 +40,10 @@ import org.apache.wicket.util.template.PackageTextTemplate;
  */
 public abstract class HandlebarsButton<T> extends AjaxButton
 {
+	/**
+	 * Uses JQueryPluginResourceReference to specify that it depends on jQuery.
+	 * This way jQuery will be delivered before handlebars.js
+	 */
 	private static final JavaScriptResourceReference HANDLEBARS_JS =
 			new JQueryPluginResourceReference(HandlebarsButton.class, "handlebars-1.0.0.beta.6.js");
 
@@ -73,13 +77,6 @@ public abstract class HandlebarsButton<T> extends AjaxButton
 	}
 
 	@Override
-	public void renderHead(IHeaderResponse response)
-	{
-		super.renderHead(response);
-		response.render(JavaScriptHeaderItem.forReference(HANDLEBARS_JS));
-	}
-
-	@Override
 	protected void updateAjaxAttributes(AjaxRequestAttributes attributes)
 	{
 		super.updateAjaxAttributes(attributes);
@@ -101,8 +98,22 @@ public abstract class HandlebarsButton<T> extends AjaxButton
 		attributes.getAjaxCallListeners().add(listener);
 	}
 
+	/**
+	 * Serializes the object to its JSON representation that will be used as
+	 * an Ajax response.
+	 * This method that should be implemented by the client of this component.
+	 *
+	 * @param object the object to serialize
+	 * @return the JSON representation of the passed object
+	 */
 	protected abstract CharSequence asJson(T object);
 
+	/**
+	 * Serializes the form's model object to JSON and delivers it to the browser.
+	 *
+	 * @param target the Ajax request handler. Since we work with JSON we just ignore it.
+	 * @param form the form that contains this button. Keeps the POJO as a model object.
+	 */
 	@Override
 	protected final void onSubmit(AjaxRequestTarget target, Form<?> form)
 	{
@@ -116,5 +127,17 @@ public abstract class HandlebarsButton<T> extends AjaxButton
 		// replace AjaxRequestHandler with the JSON one
 		getRequestCycle().replaceAllRequestHandlers(jsonHandler);
 
+	}
+
+	/**
+	 * Contribute Handlebars.js
+	 *
+	 * @param response the response that writes the page headers
+	 */
+	@Override
+	public void renderHead(IHeaderResponse response)
+	{
+		super.renderHead(response);
+		response.render(JavaScriptHeaderItem.forReference(HANDLEBARS_JS));
 	}
 }
