@@ -1,0 +1,19 @@
+/**
+ * A function used as Wicket Ajax listener's onSuccess() handler
+ * See https://cwiki.apache.org/confluence/x/NK2oAQ for more details
+ */
+function(attrs, jqXHR, data, textStatus) {
+
+	// load the Handlebars template
+	var source   = $("#${templateId}").html();
+
+	// compile it
+	var template = Handlebars.compile(source);
+
+	// populate it with the 'data' passed to Wicket.Ajax's onSuccess() listeners
+	var html = template(data);
+
+	// replace the HTML element with the html from the populated Handlebars template
+	Wicket.DOM.replace(jQuery('${targetSelector}')[0], html);
+
+}

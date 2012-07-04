@@ -9,5 +9,6 @@
   <url>http://maven.apache.org</url>
   <modules>
     <module>request-mappers</module>
+    <module>wicket6-ajax-demo</module>
   </modules>
 </project>
