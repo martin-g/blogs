@@ -26,7 +26,8 @@ import org.apache.wicket.request.resource.ExternalUrlResourceReference;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 
 /**
- * @since
+ * A resource reference that contributes 'charts.js' - the JavaScript that registers the WebSocket client
+ * and constructs the Google chart.
  */
 public class ChartsResourceReference extends JavaScriptResourceReference
 {
@@ -35,6 +36,10 @@ public class ChartsResourceReference extends JavaScriptResourceReference
 		super(ChartsResourceReference.class, "charts.js");
 	}
 
+	/**
+	 * Specify that charts.js depends on Google JS APIs and Wicket WebSocket JavaScript
+	 * @return a list of dependencies
+	 */
 	@Override
 	public Iterable<? extends HeaderItem> getDependencies()
 	{
