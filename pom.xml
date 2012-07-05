@@ -10,5 +10,6 @@
   <modules>
     <module>request-mappers</module>
     <module>wicket6-ajax-demo</module>
+    <module>wicket6-native-websockets</module>
   </modules>
 </project>
