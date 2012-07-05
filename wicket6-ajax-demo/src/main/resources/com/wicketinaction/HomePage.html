@@ -14,20 +14,44 @@
 			</div>
 		</div>
 
-		<div class="article"></div>
-		<hr/>
-		<form wicket:id="form">
-			<label>Enter the header<input wicket:id="title"/></label>
-			<br/>
-			<label>Enter the content<textarea wicket:id="content"></textarea></label>
-			<br/>
-			<input type="submit" wicket:id="update"/>
-		</form>
+		<div style="float: left;">
+			<!-- simple form to enter the article title and content -->
+			<form wicket:id="form">
+				<table>
+					<tr>
+						<td>
+							<label for="title">Enter the header</label>
+						</td>
+						<td>
+							<input id="title" wicket:id="title"/>
+						</td>
+					</tr>
+					<tr>
+						<td valign="top">
+							<label for="content">Enter the content</label>
+						</td>
+						<td>
+							<textarea id="content" wicket:id="content" cols="50" rows="10"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>&#160;</td>
+						<td style="text-align: right;">
+							<input type="submit" wicket:id="update"/>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
 
+		<!-- this is the element that is being replaced with the populated Handlebars template -->
+		<div class="article"></div>
+
+		<!-- the handlebars template -->
 		<script id="article-template" type="text/x-handlebars-template">
 			<div class="article">
-				<h1>{{{title}}}</h1>
-				<div>
+				<h1 class="header">{{{title}}}</h1>
+				<div class="content">
 					{{{content}}}
 				</div>
 			</div>

@@ -63,11 +63,18 @@ public class HomePage extends WebPage
 			StringBuilder json = new StringBuilder();
 
 			json.append('{')
-					.append("\"title\": \"").append(Strings.toMultilineMarkup(article.title)).append('"')
-					.append(", \"content\": \"").append(Strings.toMultilineMarkup(article.content)).append('"')
+					.append("\"title\": \"").append(sanitize(article.title)).append('"')
+					.append(", \"content\": \"").append(sanitize(article.content)).append('"')
 					.append('}');
 
 			return json;
+		}
+
+		private static CharSequence sanitize(String input)
+		{
+			CharSequence jsonEscaped = Strings.replaceAll(input, "\"", "\\\"");
+			CharSequence multiline = Strings.toMultilineMarkup(jsonEscaped);
+			return multiline;
 		}
 	}
 }

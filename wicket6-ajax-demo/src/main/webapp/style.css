@@ -66,3 +66,21 @@ h3 {
 	font-size:24pt;
 	color:#092E67;
 }
+
+.article {
+	border: 1px solid #808080;
+	width: 400px;
+	min-height: 150px;
+	margin: 30px 140px 0px 20px;
+	padding: 0px 2px 0px 2px;
+	float: right;
+}
+
+.article .header {
+	height: 20px;
+	border-bottom: 1px double #808080;
+}
+
+.article .content {
+	min-height: 30px;
+}

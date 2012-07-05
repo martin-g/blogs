@@ -92,9 +92,23 @@ public abstract class HandlebarsButton<T> extends AjaxButton
 			@Override
 			public CharSequence getSuccessHandler(Component component)
 			{
+				// returns an instance of JsonFunction, so Wicket will render it as is
 				return onSuccessFunction;
 			}
 		};
+
+		// the following handlers are not JsonFunction and they will be wrapped in JsonFunction by Wicket and the
+		// appropriate parameters will be passed.
+
+		// For the 'before' handler it looks like: function(attrs, jqXHR, settings){Wicket.Log.info('[Wicket Ajax 6 demo]: executing a before handler');}
+		listener.onBefore("Wicket.Log.info('[Wicket Ajax 6 demo]: executing a before handler');");
+
+		// For the 'complete' handler it looks like: function(attrs, jqXHR, textStatus){Wicket.Log.info('[Wicket Ajax 6 demo]: executing a complete handler');}
+		listener.onComplete("Wicket.Log.info('[Wicket Ajax 6 demo]: executing a complete handler. Status: ' + textStatus);");
+
+		// change the return to 'false' and the Ajax call wont be executed at all.
+		listener.onPrecondition("return true;");
+
 		attributes.getAjaxCallListeners().add(listener);
 	}
 
