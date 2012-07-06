@@ -28,7 +28,7 @@ import org.apache.wicket.request.resource.ExternalUrlResourceReference;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 
 /**
- *
+ * A resource reference that declares some dependencies
  */
 public class ResourceReferenceA extends JavaScriptResourceReference
 {

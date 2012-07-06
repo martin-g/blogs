@@ -30,6 +30,8 @@ public class DependencyPage extends WebPage
 	{
 		super.renderHead(response);
 
+		// contribute just the reference.
+		// Wicket will manage the reference dependencies for you
 		response.render(JavaScriptHeaderItem.forReference(new ResourceReferenceA()));
 	}
 }
