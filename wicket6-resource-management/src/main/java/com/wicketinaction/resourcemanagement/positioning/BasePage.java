@@ -35,6 +35,7 @@ public class BasePage extends WebPage
 		// header contributions
 		add(new HeaderResponseContainer("scriptInTheFooter", ResourceManagementApplication.JS_IN_FOOTER_FILTER_NAME));
 	}
+
 	@Override
 	public void renderHead(IHeaderResponse response)
 	{
