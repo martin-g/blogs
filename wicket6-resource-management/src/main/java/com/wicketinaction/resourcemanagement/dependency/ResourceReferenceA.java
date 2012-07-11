@@ -41,9 +41,12 @@ public class ResourceReferenceA extends JavaScriptResourceReference {
 
 	@Override
 	public Iterable<? extends HeaderItem> getDependencies() {
-		return Arrays.<HeaderItem>asList(JavaScriptHeaderItem
-				.forReference(DojoResourceReference.get()), CssHeaderItem
-				.forReference(new CssResourceReference(
-						ResourceReferenceA.class, "a.css")));
+		return Arrays.<HeaderItem>asList(
+
+				// in DEV mode dojo.js will be loaded from the local package resource
+				// in PRODUCTION mode the registered resource replacement will load it from Google's CDNs
+				JavaScriptHeaderItem.forReference(DojoResourceReference.get()),
+
+				CssHeaderItem.forReference(new CssResourceReference(ResourceReferenceA.class, "a.css")));
 	}
 }
