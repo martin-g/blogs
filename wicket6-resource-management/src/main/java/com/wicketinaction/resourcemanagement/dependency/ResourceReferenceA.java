@@ -16,44 +16,34 @@
  */
 package com.wicketinaction.resourcemanagement.dependency;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.HeaderItem;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
-import org.apache.wicket.request.Url;
 import org.apache.wicket.request.resource.CssResourceReference;
-import org.apache.wicket.request.resource.ExternalUrlResourceReference;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
+
+import com.wicketinaction.resourcemanagement.DojoResourceReference;
 
 /**
  * A resource reference that declares some dependencies
  */
-public class ResourceReferenceA extends JavaScriptResourceReference
-{
-	public ResourceReferenceA()
-	{
+public class ResourceReferenceA extends JavaScriptResourceReference {
+	public ResourceReferenceA() {
 		super(ResourceReferenceA.class, "a.js");
 	}
 
 	@Override
-	protected String getMinifiedName()
-	{
+	protected String getMinifiedName() {
 		return "a.compressed.js";
 	}
 
 	@Override
-	public Iterable<? extends HeaderItem> getDependencies()
-	{
-		List<HeaderItem> dependencies = new ArrayList<HeaderItem>();
-
-		Url dojoGoogleCdn = Url.parse("https://ajax.googleapis.com/ajax/libs/dojo/1.7.2/dojo/dojo.js");
-		ExternalUrlResourceReference externalUrlResourceReference = new ExternalUrlResourceReference(dojoGoogleCdn);
-		dependencies.add(JavaScriptHeaderItem.forReference(externalUrlResourceReference));
-
-		dependencies.add(CssHeaderItem.forReference(new CssResourceReference(ResourceReferenceA.class, "a.css")));
-
-		return dependencies;
+	public Iterable<? extends HeaderItem> getDependencies() {
+		return Arrays.<HeaderItem>asList(JavaScriptHeaderItem
+				.forReference(DojoResourceReference.get()), CssHeaderItem
+				.forReference(new CssResourceReference(
+						ResourceReferenceA.class, "a.css")));
 	}
 }
