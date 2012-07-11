@@ -3,6 +3,7 @@ package com.wicketinaction;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.wicketinaction.resourcemanagement.DojoResourceReference;
 import com.wicketinaction.resourcemanagement.bundles.BundlesPage;
 import org.apache.wicket.RuntimeConfigurationType;
 import org.apache.wicket.markup.head.HeaderItem;
@@ -13,6 +14,10 @@ import org.apache.wicket.markup.head.filter.FilteringHeaderResponse;
 import org.apache.wicket.markup.head.filter.OppositeHeaderResponseFilter;
 import org.apache.wicket.markup.html.IHeaderResponseDecorator;
 import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.request.Url;
+import org.apache.wicket.request.resource.ExternalUrlResourceReference;
+import org.apache.wicket.resource.JQueryResourceReference;
+import org.apache.wicket.settings.IJavaScriptLibrarySettings;
 
 /**
  * A demo application for "Wicket 6 Resource management" blog article
@@ -36,6 +41,15 @@ public class ResourceManagementApplication extends WebApplication
 	public void init()
 	{
 		super.init();
+		
+		/**
+		 * Register a resource replacement for Dojo. Any usage of
+		 * DojoResourceReference will be replaced by the external Google url.
+		 */
+		addResourceReplacement(
+				DojoResourceReference.get(),
+				new ExternalUrlResourceReference(
+						Url.parse("https://ajax.googleapis.com/ajax/libs/dojo/1.7.3/dojo/dojo.js")));
 
 		/**
 		 * Registers a bundle that will be used whenever a component or a behavior contributes any of
