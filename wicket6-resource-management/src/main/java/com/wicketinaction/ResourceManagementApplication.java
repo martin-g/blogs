@@ -15,7 +15,7 @@ import org.apache.wicket.markup.head.filter.OppositeHeaderResponseFilter;
 import org.apache.wicket.markup.html.IHeaderResponseDecorator;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.Url;
-import org.apache.wicket.request.resource.ExternalUrlResourceReference;
+import org.apache.wicket.request.resource.UrlResourceReference;
 
 /**
  * A demo application for "Wicket 6 Resource management" blog article
@@ -47,7 +47,7 @@ public class ResourceManagementApplication extends WebApplication
 			 */
 			addResourceReplacement(
 					DojoResourceReference.get(),
-					new ExternalUrlResourceReference(
+					new UrlResourceReference(
 							Url.parse("https://ajax.googleapis.com/ajax/libs/dojo/1.7.3/dojo/dojo.js")));
 		}
 

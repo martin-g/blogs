@@ -22,7 +22,7 @@ import org.apache.wicket.markup.head.HeaderItem;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.protocol.ws.api.WicketWebSocketJQueryResourceReference;
 import org.apache.wicket.request.Url;
-import org.apache.wicket.request.resource.ExternalUrlResourceReference;
+import org.apache.wicket.request.resource.UrlResourceReference;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 
 /**
@@ -44,7 +44,7 @@ public class ChartsResourceReference extends JavaScriptResourceReference
 	public Iterable<? extends HeaderItem> getDependencies()
 	{
 		return Arrays.asList(
-			JavaScriptHeaderItem.forReference(new ExternalUrlResourceReference(Url.parse("https://www.google.com/jsapi"))),
+			JavaScriptHeaderItem.forReference(new UrlResourceReference(Url.parse("https://www.google.com/jsapi"))),
 			JavaScriptHeaderItem.forReference(WicketWebSocketJQueryResourceReference.get())
 		);
 	}
