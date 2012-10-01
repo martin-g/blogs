@@ -1,9 +1,13 @@
 package com.wicketinaction;
 
+import java.io.File;
+import java.net.URL;
+
 import org.apache.wicket.util.time.Duration;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.nio.SelectChannelConnector;
 import org.eclipse.jetty.server.ssl.SslSocketConnector;
+import org.eclipse.jetty.util.resource.FileResource;
 import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.util.ssl.SslContextFactory;
 import org.eclipse.jetty.webapp.WebAppContext;
@@ -52,6 +56,9 @@ public class Start {
         bb.setServer(server);
         bb.setContextPath("/");
         bb.setWar("src/main/webapp");
+	    File f = new File(new File("."), "src/main/webapp/WEB-INF/web-jetty-7x-8x.xml");
+	    URL url = f.toURI().toURL();
+	    bb.getMetaData().setWebXml(new FileResource(url));
 
         // START JMX SERVER
         // MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();

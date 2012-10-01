@@ -25,7 +25,7 @@
 	</parent>
 	<artifactId>wicket6-native-websockets</artifactId>
 	<packaging>war</packaging>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.1-SNAPSHOT</version>
 	<name>Wicket 6 Native WebSockets demo</name>
 
 	<licenses>
@@ -37,28 +37,167 @@
 	</licenses>
 	<properties>
 		<wicket.version>6.0.0</wicket.version>
+        <wicket-native-websocket.version>0.4-SNAPSHOT</wicket-native-websocket.version>
 		<jetty.version>7.6.3.v20120416</jetty.version>
+        <jetty9.version>9.0.0.M0</jetty9.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+
+    <profiles>
+        <profile>
+            <id>jetty-7x-8x</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.wicket</groupId>
+                    <artifactId>wicket-native-websocket-jetty</artifactId>
+                    <version>${wicket-native-websocket.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.eclipse.jetty.aggregate</groupId>
+                    <artifactId>jetty-all-server</artifactId>
+                    <version>${jetty.version}</version>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <version>2.3</version>
+                        <configuration>
+                            <webResources>
+                                <webXml>web.jetty-7x-8x.xml</webXml>
+                            </webResources>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <version>1.7</version>
+                        <executions>
+                            <execution>
+                                <id>add-test-source</id>
+                                <phase>generate-test-sources</phase>
+                                <goals>
+                                    <goal>add-test-source</goal>
+                                </goals>
+                                <configuration>
+                                    <sources>
+                                        <source>${basedir}/src/test/java-jetty-7x-8x</source>
+                                    </sources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.mortbay.jetty</groupId>
+                        <artifactId>jetty-maven-plugin</artifactId>
+                        <version>${jetty.version}</version>
+                        <configuration>
+                            <connectors>
+                                <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+                                    <port>8080</port>
+                                    <maxIdleTime>3600000</maxIdleTime>
+                                </connector>
+                                <connector implementation="org.eclipse.jetty.server.ssl.SslSocketConnector">
+                                    <port>8443</port>
+                                    <maxIdleTime>3600000</maxIdleTime>
+                                    <keystore>${project.build.directory}/test-classes/keystore</keystore>
+                                    <password>wicket</password>
+                                    <keyPassword>wicket</keyPassword>
+                                </connector>
+                            </connectors>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>jetty-9x</id>
+            <dependencies>
+
+                <dependency>
+                    <groupId>org.apache.wicket</groupId>
+                    <artifactId>wicket-native-websocket-jetty9</artifactId>
+                    <version>${wicket-native-websocket.version}</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.eclipse.jetty.websocket</groupId>
+                    <artifactId>websocket-server</artifactId>
+                    <version>${jetty9.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-webapp</artifactId>
+                    <version>${jetty9.version}</version>
+                </dependency>
+
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <version>2.3</version>
+                        <configuration>
+                            <webResources>
+                                <webXml>web.jetty-9x.xml</webXml>
+                            </webResources>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <version>1.7</version>
+                        <executions>
+                            <execution>
+                                <id>add-test-source</id>
+                                <phase>generate-test-sources</phase>
+                                <goals>
+                                    <goal>add-test-source</goal>
+                                </goals>
+                                <configuration>
+                                    <sources>
+                                        <source>${basedir}/src/test/java-jetty-9x</source>
+                                    </sources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>tomcat-7.x</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.wicket</groupId>
+                    <artifactId>wicket-native-websocket-tomcat</artifactId>
+                    <version>${wicket-native-websocket.version}</version>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <version>2.3</version>
+                        <configuration>
+                            <webResources>
+                                <webXml>web.tomcat-7x.xml</webXml>
+                            </webResources>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
 	<dependencies>
-		<!--  WICKET DEPENDENCIES -->
-		<dependency>
-			<groupId>org.apache.wicket</groupId>
-			<artifactId>wicket-core</artifactId>
-			<version>${wicket.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.wicket</groupId>
-			<artifactId>wicket-native-websocket-jetty</artifactId>
-			<version>0.2</version>
-		</dependency>
-
-		<!--<dependency>-->
-			<!--<groupId>org.apache.wicket</groupId>-->
-			<!--<artifactId>wicket-native-websocket-tomcat</artifactId>-->
-			<!--<version>0.1-SNAPSHOT</version>-->
-		<!--</dependency>-->
 
 		<!-- LOGGING DEPENDENCIES - LOG4J -->
 		<dependency>
@@ -80,14 +219,8 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!--  JETTY DEPENDENCIES FOR TESTING  -->
-		<dependency>
-			<groupId>org.eclipse.jetty.aggregate</groupId>
-			<artifactId>jetty-all-server</artifactId>
-			<version>${jetty.version}</version>
-			<scope>provided</scope>
-		</dependency>
 	</dependencies>
+
 	<build>
 		<resources>
 			<resource>
@@ -107,15 +240,6 @@
 			<testResource>
 				<directory>src/test/resources</directory>
 			</testResource>
-			<testResource>
-				<directory>src/test/java</directory>
-				<includes>
-					<include>**</include>
-				</includes>
-				<excludes>
-					<exclude>**/*.java</exclude>
-				</excludes>
-			</testResource>
 		</testResources>
 		<plugins>
 			<plugin>
@@ -129,26 +253,6 @@
 					<encoding>UTF-8</encoding>
 					<showWarnings>true</showWarnings>
 					<showDeprecation>true</showDeprecation>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>jetty-maven-plugin</artifactId>
-				<version>${jetty.version}</version>
-				<configuration>
-					<connectors>
-						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-							<port>8080</port>
-							<maxIdleTime>3600000</maxIdleTime>
-						</connector>
-						<connector implementation="org.eclipse.jetty.server.ssl.SslSocketConnector">
-							<port>8443</port>
-							<maxIdleTime>3600000</maxIdleTime>
-							<keystore>${project.build.directory}/test-classes/keystore</keystore>
-							<password>wicket</password>
-							<keyPassword>wicket</keyPassword>
-						</connector>
-					</connectors>
 				</configuration>
 			</plugin>
 			<plugin>
