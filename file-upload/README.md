@@ -1,2 +1,1 @@
-The is the application used for blog article ... that demonstrates how to integrate http://blueimp.github.com/jQuery-File-Upload/
-with Apache Wicket by using IResource.
+The is the application used for blog article http://wicketinaction.com/2012/11/uploading-files-to-wicket-iresource that demonstrates how to integrate http://blueimp.github.com/jQuery-File-Upload/ with Apache Wicket by using IResource.
