@@ -15,45 +15,20 @@ module.exports = function(grunt) {
 	"use strict";
 
 	var
-		coreJs = [
-			'wicket-core/src/main/java/org/apache/wicket/ajax/res/js/wicket-event-jquery.js',
-			'wicket-core/src/main/java/org/apache/wicket/ajax/res/js/wicket-ajax-jquery-debug.js',
-			'wicket-core/src/main/java/org/apache/wicket/ajax/res/js/wicket-ajax-jquery.js',
-			"wicket-core/src/main/java/org/apache/wicket/markup/html/form/CheckGroupSelector.js",
-			"wicket-core/src/main/java/org/apache/wicket/markup/html/form/CheckboxMultipleChoiceSelector.js",
-			"wicket-core/src/main/java/org/apache/wicket/markup/html/form/AbstractCheckSelector.js",
-			"wicket-core/src/main/java/org/apache/wicket/markup/html/form/upload/MultiFileUploadField.js",
-			"wicket-core/src/main/java/org/apache/wicket/markup/html/form/CheckBoxSelector.js",
-			"wicket-core/src/main/java/org/apache/wicket/ajax/form/AjaxFormChoiceComponentUpdatingBehavior.js"
-		],
-		extensionsJs = [
-			"wicket-extensions/src/main/java/org/apache/wicket/extensions/ajax/markup/html/form/upload/progressbar.js",
-			"wicket-extensions/src/main/java/org/apache/wicket/extensions/markup/html/form/palette/palette.js",
-			"wicket-extensions/src/main/java/org/apache/wicket/extensions/markup/html/tree/res/tree.js",
-			"wicket-extensions/src/main/java/org/apache/wicket/extensions/ajax/markup/html/autocomplete/wicket-autocomplete.js",
-			"wicket-extensions/src/main/java/org/apache/wicket/extensions/ajax/markup/html/modal/res/modal.js"
-		],
-		datetimeJs = [
-			"wicket-datetime/src/main/java/org/apache/wicket/extensions/yui/calendar/wicket-date.js"
-		],
-		nativeWebSocketJs = [
-		"wicket-experimental/wicket-native-websocket/wicket-native-websocket-core/src/main/java/org/apache/wicket/protocol/ws/api/res/js/wicket-websocket-jquery.js"
-		],
-		atmosphereJs = [
-			"wicket-experimental/wicket-atmosphere/src/main/java/org/apache/wicket/atmosphere/jquery.wicketatmosphere.js"
+		testsJs = [
+			'src/main/webapp/js-test/tests/helloworld.js',
+			'src/main/webapp/js-test/tests/echo.js',
+			'src/main/webapp/js-test/tests/forminput.js',
+			'src/main/webapp/js-test/tests/ajax/form.js',
 		],
 		gruntJs = [
-			"grunt.js"
+			'grunt.js'
 		];
 
 	// Project configuration.
 	grunt.initConfig({
 		lint: {
-			core: coreJs,
-			extensions: extensionsJs,
-			datetime: datetimeJs,
-			nativeWebSocket: nativeWebSocketJs,
-			atmosphere: atmosphereJs,
+			tests: testsJs,
 			grunt: gruntJs
 		},
 
