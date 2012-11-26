@@ -12,7 +12,8 @@
 		<module>wicket6-ajax-demo</module>
 		<module>wicket6-native-websockets</module>
 		<module>wicket6-resource-management</module>
-        <module>file-upload</module>
+		<module>file-upload</module>
+		<module>functional-qunit</module>
     </modules>
     <build>
     	<pluginManagement>

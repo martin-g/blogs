@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>QUnit tests</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="lib/qunit-1.10.0.css" type="text/css" media="screen" />
+    <script type="text/javascript" src="lib/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        $q = jQuery.noConflict(true),
+                $ = null,
+                jQuery = null;
+    </script>
+    <script type="text/javascript" src="lib/qunit-1.10.0.js"></script>
+
+
+    <script type="text/javascript" src="Helpers.js"></script>
+
+	<!-- the module under test -->
+    <script type="text/javascript" src="tests/helloworld.js"></script>
+    <script type="text/javascript" src="tests/echo.js"></script>
+    <script type="text/javascript" src="tests/forminput.js"></script>
+</head>
+
+<body>
+	<h1 id="qunit-header">Wicket Examples's JS tests</h1>
+
+	<h2 id="qunit-banner"></h2>
+
+	<div id="qunit-testrunner-toolbar"></div>
+
+	<h2 id="qunit-userAgent"></h2>
+
+    <!-- Show the iframe to see how the tests run -->
+    <iframe id="applicationFrame" width="100%" height="500px" src="../"></iframe>
+
+    <ol id="qunit-tests"></ol>
+
+    <div id="qunit-fixture">
+
+    </div>
+</body>
+</html>
