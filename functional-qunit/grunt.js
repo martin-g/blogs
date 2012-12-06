@@ -55,7 +55,7 @@ module.exports = function(grunt) {
 			}
 		},
 		qunit: {
-			index: ['http://localhost:8080/js-test/all.html']
+			index: ['http://localhost:51982/js-test/all.html']
 		}
 	});
 };
