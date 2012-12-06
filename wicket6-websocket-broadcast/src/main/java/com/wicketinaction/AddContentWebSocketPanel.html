@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+
+<body>
+	<wicket:panel>
+		<h3>Add messages to feed</h3>
+		<p>
+		Latest message: <span wicket:id="latestMessage"></span>
+		</p>
+		<form>
+			<label for="websocketMessage">Message to send:</label><input
+				type="text" id="websocketMessage" />
+			<button id="sendWebSocket">Send</button>
+		</form>
+		<script type="text/javascript">
+			function reopen() {
+				console.log("Web socket connection closed. Try reopening after delay.");
+				setTimeout(function() {
+					console.log("Reopen websocket connection");
+					Wicket.WebSocket.createDefaultConnection();			
+				}, 1000);
+			}
+			$(document).ready(function() {
+				Wicket.Event.subscribe("/websocket/closed", reopen);
+				Wicket.Event.subscribe("/websocket/error", reopen);
+				$('#sendWebSocket').click(function() {
+					var message = $('#websocketMessage').val();
+					if (message != '') {
+						// ajax debugger gives error if trying to send empty string
+						Wicket.WebSocket.send(message);
+						$('#websocketMessage').val('');
+					}
+					return false;
+				});
+			});
+		</script>
+	</wicket:panel>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+
+<body>
+	<wicket:panel>
+		<h3>Add messages to feed</h3>
+		<form wicket:id="ajaxForm">
+			<p>
+			Latest message: <span wicket:id="latestMessage"></span>
+			</p>
+			<label for="ajaxMessage">Message to send:</label><input
+				type="text" wicket:id="ajaxMessage" />
+			<button wicket:id="sendAjax">Send</button>
+		</form>
+	</wicket:panel>
+</body>
+</html>
