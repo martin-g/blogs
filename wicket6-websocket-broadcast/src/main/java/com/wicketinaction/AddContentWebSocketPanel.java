@@ -53,7 +53,7 @@ public class AddContentWebSocketPanel extends Panel
 			{
 				log.info("Received message {}", message.getText());
 				FeedItem feedItem = new FeedItem(message.getText());
-				IWebSocketSettings webSocketSettings = IWebSocketSettings.HOLDER.get(getApplication());
+				IWebSocketSettings webSocketSettings = IWebSocketSettings.Holder.get(getApplication());
 				WebSocketPushBroadcaster broadcaster =
 						new WebSocketPushBroadcaster(webSocketSettings.getConnectionRegistry());
 				broadcaster.broadcastAll(Application.get(), feedItem);

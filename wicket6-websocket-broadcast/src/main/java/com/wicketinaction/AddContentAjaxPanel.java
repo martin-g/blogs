@@ -47,7 +47,7 @@ public class AddContentAjaxPanel extends Panel
 				latestMessage.setDefaultModelObject(feedItem);
 				ajaxMessage.setModelObject(null);
 				target.add(ajaxForm);
-				IWebSocketSettings webSocketSettings = IWebSocketSettings.HOLDER.get(getApplication());
+				IWebSocketSettings webSocketSettings = IWebSocketSettings.Holder.get(getApplication());
 				WebSocketPushBroadcaster broadcaster =
 						new WebSocketPushBroadcaster(webSocketSettings.getConnectionRegistry());
 				broadcaster.broadcastAll(Application.get(), feedItem);

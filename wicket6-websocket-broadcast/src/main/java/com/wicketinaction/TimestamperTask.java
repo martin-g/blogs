@@ -21,7 +21,7 @@ public class TimestamperTask implements Runnable
 	{
 		log.info("Sending timestamp to feed");
 		FeedItem feedItem = new FeedItem("------ TIMESTAMP --------");
-		IWebSocketSettings webSocketSettings = IWebSocketSettings.HOLDER.get(application);
+		IWebSocketSettings webSocketSettings = IWebSocketSettings.Holder.get(application);
 		WebSocketPushBroadcaster broadcaster =
 				new WebSocketPushBroadcaster(webSocketSettings.getConnectionRegistry());
 		broadcaster.broadcastAll(application, feedItem);
