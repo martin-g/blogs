@@ -2,13 +2,13 @@ package com.wicketinaction;
 
 import org.apache.wicket.Application;
 import org.apache.wicket.Component;
-import org.apache.wicket.ajax.WebSocketRequestHandler;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.protocol.ws.IWebSocketSettings;
 import org.apache.wicket.protocol.ws.api.WebSocketBehavior;
 import org.apache.wicket.protocol.ws.api.WebSocketPushBroadcaster;
+import org.apache.wicket.protocol.ws.api.WebSocketRequestHandler;
 import org.apache.wicket.protocol.ws.api.message.ConnectedMessage;
 import org.apache.wicket.protocol.ws.api.message.TextMessage;
 import org.slf4j.Logger;

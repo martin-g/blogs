@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.ajax.WebSocketRequestHandler;
 import org.apache.wicket.event.IEvent;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -14,6 +13,7 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.protocol.ws.api.WebSocketBehavior;
+import org.apache.wicket.protocol.ws.api.WebSocketRequestHandler;
 import org.apache.wicket.protocol.ws.api.event.WebSocketPushPayload;
 import org.apache.wicket.protocol.ws.api.message.ConnectedMessage;
 import org.apache.wicket.protocol.ws.api.message.TextMessage;

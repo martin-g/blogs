@@ -36,7 +36,7 @@
 		</license>
 	</licenses>
 	<properties>
-		<wicket.version>6.0.0</wicket.version>
+		<wicket.version>6.4.0-SNAPSHOT</wicket.version>
 		<jetty.version>7.6.3.v20120416</jetty.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -51,13 +51,13 @@
 		<dependency>
 			<groupId>org.apache.wicket</groupId>
 			<artifactId>wicket-native-websocket-jetty</artifactId>
-			<version>0.2</version>
+			<version>0.5-SNAPSHOT</version>
 		</dependency>
 
 		<!--<dependency>-->
 			<!--<groupId>org.apache.wicket</groupId>-->
 			<!--<artifactId>wicket-native-websocket-tomcat</artifactId>-->
-			<!--<version>0.2</version>-->
+			<!--<version>0.5-SNAPSHOT</version>-->
 		<!--</dependency>-->
 
 		<!-- LOGGING DEPENDENCIES - LOG4J -->
