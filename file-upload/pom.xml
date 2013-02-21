@@ -15,7 +15,7 @@
     <name>Wicket jQuery File Upload</name>
 
     <properties>
-        <wicket.version>6.2.0</wicket.version>
+        <wicket.version>6.5.0</wicket.version>
         <jetty.version>8.1.7.v20120910</jetty.version>
     </properties>
 

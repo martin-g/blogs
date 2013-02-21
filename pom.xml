@@ -15,7 +15,8 @@
 		<module>wicket6-resource-management</module>
 		<module>file-upload</module>
 		<module>functional-qunit</module>
-    </modules>
+    <module>wicket6-replace-with-effect</module>
+  </modules>
     <build>
     	<pluginManagement>
     		<plugins>

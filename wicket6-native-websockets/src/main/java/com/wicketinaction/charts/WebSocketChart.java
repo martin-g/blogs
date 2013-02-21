@@ -16,19 +16,21 @@
  */
 package com.wicketinaction.charts;
 
-import java.util.Random;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-
 import org.apache.wicket.Application;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.protocol.ws.IWebSocketSettings;
 import org.apache.wicket.protocol.ws.api.IWebSocketConnection;
 import org.apache.wicket.protocol.ws.api.IWebSocketConnectionRegistry;
-import org.apache.wicket.protocol.ws.api.SimpleWebSocketConnectionRegistry;
 import org.apache.wicket.protocol.ws.api.WebSocketBehavior;
+import org.apache.wicket.protocol.ws.api.WebSocketRequestHandler;
 import org.apache.wicket.protocol.ws.api.message.ConnectedMessage;
+import org.apache.wicket.protocol.ws.api.message.TextMessage;
+
+import java.util.Random;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * A panel that initializes a Google Line chart and uses WebSocketBehavior to register an asynchronous
@@ -86,7 +88,7 @@ public class WebSocketChart extends Panel
 			}
 			return data;
 		}
-	}
+    }
 
 	/**
 	 * A task that sends data to the client by pushing it to the web socket connection
@@ -97,7 +99,7 @@ public class WebSocketChart extends Panel
 
 		/**
 		 * The following fields are needed to be able to lookup the IWebSocketConnection from
-		 * SimpleWebSocketConnectionRegistry
+		 * IWebSocketConnectionRegistry
 		 */
 		private final String applicationName;
 		private final String sessionId;
@@ -119,13 +121,15 @@ public class WebSocketChart extends Panel
 		@Override
 		public void run()
 		{
-			IWebSocketConnectionRegistry webSocketConnectionRegistry = new SimpleWebSocketConnectionRegistry();
+			Application application = Application.get(applicationName);
+			IWebSocketSettings webSocketSettings = IWebSocketSettings.Holder.get(application);
+			IWebSocketConnectionRegistry webSocketConnectionRegistry = webSocketSettings.getConnectionRegistry();
+			IWebSocketConnection connection = webSocketConnectionRegistry.getConnection(application, sessionId, pageId);
+
 			int dataIndex = 0;
 
-			while (true && dataIndex < data.length)
+			while (dataIndex < data.length)
 			{
-				Application application = Application.get(applicationName);
-				IWebSocketConnection connection = webSocketConnectionRegistry.getConnection(application, sessionId, pageId);
 				if (connection == null || !connection.isOpen())
 				{
 					// stp if the web socket connection is closed

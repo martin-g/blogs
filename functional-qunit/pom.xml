@@ -17,7 +17,7 @@
 		<dependency>
 			<groupId>org.apache.wicket</groupId>
 			<artifactId>wicket-examples</artifactId>
-			<version>6.3.0</version>
+			<version>6.5.0</version>
 			<type>war</type>
 		</dependency>
 

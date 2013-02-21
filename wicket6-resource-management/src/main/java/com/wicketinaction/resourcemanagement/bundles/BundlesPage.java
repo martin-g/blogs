@@ -16,9 +16,6 @@
  */
 package com.wicketinaction.resourcemanagement.bundles;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.wicket.Application;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
@@ -26,6 +23,9 @@ import org.apache.wicket.markup.head.JavaScriptReferenceHeaderItem;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.resource.bundles.ConcatResourceBundleReference;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -44,29 +44,6 @@ public class BundlesPage extends WebPage
 		response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(BundlesPage.class, "not-bundled.js")));
 
 		response.render(JavaScriptHeaderItem.forReference(new MyBundle()));
-	}
-
-	private static class MyBundle extends ConcatResourceBundleReference<JavaScriptReferenceHeaderItem>
-	{
-		public MyBundle()
-		{
-			super(MyBundle.class, "custom-bundle.js", getResources());
-
-			if (Application.exists())
-			{
-				Application.get().getResourceReferenceRegistry().registerResourceReference(this);
-			}
-		}
-
-		private static List<JavaScriptReferenceHeaderItem> getResources()
-		{
-			List<JavaScriptReferenceHeaderItem> references = new ArrayList<JavaScriptReferenceHeaderItem>();
-			references.add(JavaScriptHeaderItem.forReference(new BundledResourceReferenceA()));
-			references.add(JavaScriptHeaderItem.forReference(new BundledResourceReferenceB()));
-			references.add(JavaScriptHeaderItem.forReference(new BundledResourceReferenceC()));
-
-			return references;
-		}
 	}
 
 	public static class BundledResourceReferenceA extends JavaScriptResourceReference
@@ -92,4 +69,29 @@ public class BundlesPage extends WebPage
 			super(BundledResourceReferenceC.class, "bundled-c.js");
 		}
 	}
+
+
+	private static class MyBundle extends ConcatResourceBundleReference<JavaScriptReferenceHeaderItem>
+	{
+		public MyBundle()
+		{
+			super(MyBundle.class, "custom-bundle.js", getResources());
+
+			if (Application.exists())
+			{
+				Application.get().getResourceReferenceRegistry().registerResourceReference(this);
+			}
+		}
+
+		private static List<JavaScriptReferenceHeaderItem> getResources()
+		{
+			List<JavaScriptReferenceHeaderItem> references = new ArrayList<JavaScriptReferenceHeaderItem>();
+			references.add(JavaScriptHeaderItem.forReference(new BundledResourceReferenceA()));
+			references.add(JavaScriptHeaderItem.forReference(new BundledResourceReferenceB()));
+			references.add(JavaScriptHeaderItem.forReference(new BundledResourceReferenceC()));
+
+			return references;
+		}
+	}
+
 }
