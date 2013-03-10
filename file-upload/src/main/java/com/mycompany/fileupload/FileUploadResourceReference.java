@@ -13,12 +13,12 @@ import org.apache.wicket.util.upload.FileItem;
 
 import java.util.List;
 
+import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
+
 /**
  * A resource reference provides default implementation of AbstractFileUploadResource.
  * The implementation generates JSON response as expected by the demo at
  * <a href="http://blueimp.github.com/jQuery-File-Upload/">http://blueimp.github.com/jQuery-File-Upload</a>
- *
- * TODO: finish the HTML response for IE
  */
 public class FileUploadResourceReference extends ResourceReference
 {
@@ -69,7 +69,9 @@ public class FileUploadResourceReference extends ResourceReference
             @Override
             protected String generateHtmlResponse(ResourceResponse resourceResponse, ServletWebRequest webRequest, List<FileItem> files)
             {
-                return "<b>some html</b>";
+                String jsonResponse = generateJsonResponse(resourceResponse, webRequest, files);
+                String escapedJson = escapeHtml(jsonResponse);
+                return escapedJson;
             }
         };
     }
