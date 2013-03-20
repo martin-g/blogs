@@ -1,13 +1,12 @@
 package com.wicketinaction;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.wicketinaction.resourcemanagement.DojoResourceReference;
 import com.wicketinaction.resourcemanagement.bundles.BundlesPage;
 import org.apache.wicket.RuntimeConfigurationType;
 import org.apache.wicket.markup.head.HeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.PriorityHeaderItem;
+import org.apache.wicket.markup.head.StringHeaderItem;
 import org.apache.wicket.markup.head.filter.AbstractHeaderResponseFilter;
 import org.apache.wicket.markup.head.filter.FilteredHeaderItem;
 import org.apache.wicket.markup.head.filter.FilteringHeaderResponse;
@@ -16,6 +15,9 @@ import org.apache.wicket.markup.html.IHeaderResponseDecorator;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.Url;
 import org.apache.wicket.request.resource.UrlResourceReference;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A demo application for "Wicket 6 Resource management" blog article
@@ -97,7 +99,24 @@ public class ResourceManagementApplication extends WebApplication
 				// a filter that accepts everything that is not accepted by 'bucketAcceptingFilter'
 				filters.add(new OppositeHeaderResponseFilter(headBucket, bucketAcceptingFilter));
 
-				return new FilteringHeaderResponse(response, headBucket, filters);
+				return new FilteringHeaderResponse(response, headBucket, filters) {
+					@Override
+					public void render(HeaderItem item) {
+						if (item instanceof StringHeaderItem) {
+							StringHeaderItem stringHeaderItem = (StringHeaderItem) item;
+
+							// make specific header item coming from <wicket:head> a priority one
+							if (stringHeaderItem.getString().toString().contains("X-UA-Compatible")) {
+								super.render(new PriorityHeaderItem(stringHeaderItem));
+							} else {
+								super.render(item);
+							}
+						}
+						else {
+							super.render(item);
+						}
+					}
+				};
 			}
 		});
 	}
