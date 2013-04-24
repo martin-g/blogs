@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Parsley test</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script type="text/javascript" src="parsley.js"></script>
+</head>
+<body>
+
+    <form id="demo-form" data-validate="parsley">
+        <label for="fullname">Full Name * :</label>
+        <input type="text" id="fullname" name="fullname" data-required="true" />
+
+        <label for="email">Email * :</label>
+        <input type="text" id="email" name="email" data-trigger="change" data-required="true" data-type="email" />
+
+        <label for="website">Website :</label>
+        <input type="text" id="website" name="website" data-trigger="change" data-type="url" />
+
+        <label for="message">Message (20 chars min, 200 max) :</label>
+        <textarea id="message" name="message" data-trigger="keyup" data-rangelength="[20,200]"></textarea>
+    </form>
+
+</body>
+</html>

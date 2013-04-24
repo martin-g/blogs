@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+	<head>
+		<meta charset="utf-8" />
+		<title>Apache Wicket Quickstart</title>
+		<link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:regular,bold' rel='stylesheet' type='text/css' />
+		<link rel="stylesheet" href="style.css" type="text/css" media="screen" title="Stylesheet" />
+        <link rel="stylesheet" href="http://parsleyjs.org/components/bootstrap/docs/assets/css/bootstrap.css" type="text/css" media="screen" />
+	</head>
+	<body>
+		<div id="hd">
+			<div id="logo">
+				<img src="logo.png" width="50px" height="50px" alt="Wicket Logo" />
+				<h1>Apache Wicket</h1>
+			</div>
+		</div>
+		<div id="bd">
+			<h2>Congratulations!</h2>
+
+            <form id="demo-form" wicket:id="form">
+                <label wicket:for="fullname">Full Name * :</label>
+                <input type="text"  wicket:id="fullname" />
+
+                <label wicket:for="email">Email * :</label>
+                <input type="text"  wicket:id="email" />
+
+                <label wicket:for="website">Website :</label>
+                <input type="text"  wicket:id="website" />
+
+                <label wicket:for="message">Message (20 chars min, 200 max) :</label>
+                <textarea  wicket:id="message" name="message" data-trigger="keyup" data-rangelength="[20,200]"></textarea>
+
+                <button class="btn btn-success" wicket:id="sbt">Submit</button>
+            </form>
+
+		</div>
+		<div id="ft">
+		</div>
+	</body>
+</html>
