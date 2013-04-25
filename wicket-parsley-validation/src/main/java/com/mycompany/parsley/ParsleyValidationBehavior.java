@@ -18,30 +18,54 @@ import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.IValidator;
 
 /**
- *
+ * The base class that integrates Parsley.js with Wicket
  */
 public class ParsleyValidationBehavior<T> extends Behavior implements IValidator<T>
 {
+	/**
+	 * The form component being validated
+	 */
 	private FormComponent host;
 
+	/**
+	 * The validator to use for server-side validation
+	 */
 	private final IValidator<T> validator;
 
+	/**
+	 * A list of event names on which Parsley's will trigger
+	 * validation for the form component
+	 */
 	private final List<String> triggerEvents;
 
+	/**
+	 * The type of Parsley validation (e.g. email, url, ...)
+	 */
 	private String type;
 
 	/**
+	 * A flag indicating whether the form component is required
+	 *
 	 * Three states:
 	 * null - do not set data-require
 	 * true|false - set the value
 	 */
 	private Boolean require;
 
+	/**
+	 * A constructor that uses a no-op server side validator
+	 */
 	public ParsleyValidationBehavior()
 	{
 		this(new CompoundValidator<T>());
 	}
 
+	/**
+	 * Constructor.
+	 *
+	 * @param validator
+	 *      The server-side validator
+	 */
 	public ParsleyValidationBehavior(IValidator<T> validator)
 	{
 		this.validator = Args.notNull(validator, "validator");
@@ -49,6 +73,14 @@ public class ParsleyValidationBehavior<T> extends Behavior implements IValidator
 		this.triggerEvents = new ArrayList<String>();
 	}
 
+	/**
+	 * Contributes parsley.js when this validator is used by any form component
+	 *
+	 * @param component
+	 *      The form component that will be validated
+	 * @param response
+	 *      the response object where header contributions should be written
+	 */
 	@Override
 	public void renderHead(Component component, IHeaderResponse response)
 	{
@@ -57,6 +89,12 @@ public class ParsleyValidationBehavior<T> extends Behavior implements IValidator
 		response.render(JavaScriptHeaderItem.forReference(new ParsleyJsReference()));
 	}
 
+	/**
+	 * Sets whether the form component is required
+	 *
+	 * @param require
+	 * @return
+	 */
 	public ParsleyValidationBehavior<T> require(Boolean require)
 	{
 		this.require = require;
@@ -68,18 +106,31 @@ public class ParsleyValidationBehavior<T> extends Behavior implements IValidator
 	{
 		super.onConfigure(component);
 
+		// mark the component as required at the server side
 		if (require != null)
 		{
 			getHost().setRequired(require);
 		}
 	}
 
+	/**
+	 * Sets the type of Parsley validation.
+	 *
+	 * @param type
+	 * @return
+	 */
 	public ParsleyValidationBehavior<T> type(String type)
 	{
 		this.type = type;
 		return this;
 	}
 
+	/**
+	 * Adds JavaScript events on which Parsley will trigger client-side validation
+	 *
+	 * @param events
+	 * @return
+	 */
 	public ParsleyValidationBehavior<T> on(String... events)
 	{
 		if (events != null)
@@ -95,6 +146,12 @@ public class ParsleyValidationBehavior<T> extends Behavior implements IValidator
 		return this;
 	}
 
+	/**
+	 * Removes JavaScript events on which Parsley should trigger client-side validation
+	 *
+	 * @param events
+	 * @return
+	 */
 	public ParsleyValidationBehavior<T> off(String... events)
 	{
 		if (events != null)
@@ -110,6 +167,14 @@ public class ParsleyValidationBehavior<T> extends Behavior implements IValidator
 		return this;
 	}
 
+	/**
+	 * Writes the data-xyz attributes used by Parsley to know what kind
+	 * of client side validation should be done for hosting form component
+	 *
+	 * @param component
+	 *            the component that renders this tag currently
+	 * @param tag
+	 */
 	@Override
 	public void onComponentTag(Component component, ComponentTag tag)
 	{
@@ -136,6 +201,10 @@ public class ParsleyValidationBehavior<T> extends Behavior implements IValidator
 		}
 	}
 
+	/**
+	 * Checks that the validator is used with a FormComponent
+	 * @param component
+	 */
 	@Override
 	public void bind(Component component)
 	{
@@ -152,16 +221,27 @@ public class ParsleyValidationBehavior<T> extends Behavior implements IValidator
 		}
 	}
 
+	/**
+	 * @return the form component which will be validated
+	 */
 	protected FormComponent getHost()
 	{
 		return host;
 	}
 
+	/**
+	 * @return the server-side validator
+	 */
 	protected IValidator<T> getValidator()
 	{
 		return validator;
 	}
 
+	/**
+	 * Validates the form component value.
+	 *
+	 * @param validatable
+	 */
 	@Override
 	public void validate(IValidatable<T> validatable)
 	{

@@ -14,10 +14,15 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
-public class HomePage extends WebPage {
-	private static final long serialVersionUID = 1L;
-
-	public HomePage(final PageParameters parameters) {
+/**
+ * A demo page for Parsley validators
+ * Also shows usage of AjaxButton that doesn't submit if Parsley cannot validate the form
+ * at the client side
+ */
+public class HomePage extends WebPage
+{
+	public HomePage(final PageParameters parameters)
+	{
 		super(parameters);
 
 		final Form form = new Form("form");
