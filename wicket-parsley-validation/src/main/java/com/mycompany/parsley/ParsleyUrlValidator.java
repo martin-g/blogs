@@ -12,6 +12,6 @@ public class ParsleyUrlValidator extends ParsleyValidationBehavior<String>
 		super(new UrlValidator());
 
 		require(true);
-		type("url");
+		type("urlstrict");
 	}
 }
