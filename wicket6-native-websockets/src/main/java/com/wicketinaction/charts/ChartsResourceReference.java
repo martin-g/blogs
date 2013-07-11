@@ -16,14 +16,14 @@
  */
 package com.wicketinaction.charts;
 
-import java.util.Arrays;
+import java.util.List;
 
 import org.apache.wicket.markup.head.HeaderItem;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.protocol.ws.api.WicketWebSocketJQueryResourceReference;
 import org.apache.wicket.request.Url;
-import org.apache.wicket.request.resource.UrlResourceReference;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
+import org.apache.wicket.request.resource.UrlResourceReference;
 
 /**
  * A resource reference that contributes 'charts.js' - the JavaScript that registers the WebSocket client
@@ -41,11 +41,11 @@ public class ChartsResourceReference extends JavaScriptResourceReference
 	 * @return a list of dependencies
 	 */
 	@Override
-	public Iterable<? extends HeaderItem> getDependencies()
+	public List<HeaderItem> getDependencies()
 	{
-		return Arrays.asList(
-			JavaScriptHeaderItem.forReference(new UrlResourceReference(Url.parse("https://www.google.com/jsapi"))),
-			JavaScriptHeaderItem.forReference(WicketWebSocketJQueryResourceReference.get())
-		);
+		List<HeaderItem> dependencies = super.getDependencies();
+		dependencies.add(JavaScriptHeaderItem.forReference(new UrlResourceReference(Url.parse("https://www.google.com/jsapi"))));
+		dependencies.add(JavaScriptHeaderItem.forReference(WicketWebSocketJQueryResourceReference.get()));
+		return dependencies;
 	}
 }

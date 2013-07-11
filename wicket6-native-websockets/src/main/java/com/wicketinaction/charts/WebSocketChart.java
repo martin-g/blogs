@@ -16,6 +16,10 @@
  */
 package com.wicketinaction.charts;
 
+import java.util.Random;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 import org.apache.wicket.Application;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
@@ -24,13 +28,7 @@ import org.apache.wicket.protocol.ws.IWebSocketSettings;
 import org.apache.wicket.protocol.ws.api.IWebSocketConnection;
 import org.apache.wicket.protocol.ws.api.IWebSocketConnectionRegistry;
 import org.apache.wicket.protocol.ws.api.WebSocketBehavior;
-import org.apache.wicket.protocol.ws.api.WebSocketRequestHandler;
 import org.apache.wicket.protocol.ws.api.message.ConnectedMessage;
-import org.apache.wicket.protocol.ws.api.message.TextMessage;
-
-import java.util.Random;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 /**
  * A panel that initializes a Google Line chart and uses WebSocketBehavior to register an asynchronous
@@ -130,16 +128,16 @@ public class WebSocketChart extends Panel
 
 			while (dataIndex < data.length)
 			{
-				if (connection == null || !connection.isOpen())
-				{
-					// stp if the web socket connection is closed
-					return;
-				}
-
 				try
 				{
 					Record record = data[dataIndex++];
 					String json = String.format(JSON_SKELETON, record.year, record.field, record.value);
+
+					if (connection == null || !connection.isOpen())
+					{
+						// stp if the web socket connection is closed
+						return;
+					}
 					connection.sendMessage(json);
 
 					// sleep for a while to simulate work
