@@ -48,17 +48,17 @@
 			<version>${wicket.version}</version>
 		</dependency>
 
-		<!--<dependency>-->
-			<!--<groupId>org.apache.wicket</groupId>-->
-			<!--<artifactId>wicket-native-websocket-jetty9</artifactId>-->
-			<!--<version>0.9-SNAPSHOT</version>-->
-		<!--</dependency>-->
-
 		<dependency>
 			<groupId>org.apache.wicket</groupId>
-			<artifactId>wicket-native-websocket-tomcat</artifactId>
+			<artifactId>wicket-native-websocket-jetty9</artifactId>
 			<version>0.9-SNAPSHOT</version>
 		</dependency>
+
+		<!--<dependency>-->
+			<!--<groupId>org.apache.wicket</groupId>-->
+			<!--<artifactId>wicket-native-websocket-tomcat</artifactId>-->
+			<!--<version>0.9-SNAPSHOT</version>-->
+		<!--</dependency>-->
 
 		<!-- LOGGING DEPENDENCIES - LOG4J -->
 		<dependency>
