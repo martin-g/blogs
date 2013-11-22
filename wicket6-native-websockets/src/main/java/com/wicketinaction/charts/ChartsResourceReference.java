@@ -16,6 +16,7 @@
  */
 package com.wicketinaction.charts;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.wicket.markup.head.HeaderItem;
@@ -43,7 +44,7 @@ public class ChartsResourceReference extends JavaScriptResourceReference
 	@Override
 	public List<HeaderItem> getDependencies()
 	{
-		List<HeaderItem> dependencies = super.getDependencies();
+		List<HeaderItem> dependencies = new ArrayList<HeaderItem>();
 		dependencies.add(JavaScriptHeaderItem.forReference(new UrlResourceReference(Url.parse("https://www.google.com/jsapi"))));
 		dependencies.add(JavaScriptHeaderItem.forReference(WicketWebSocketJQueryResourceReference.get()));
 		return dependencies;

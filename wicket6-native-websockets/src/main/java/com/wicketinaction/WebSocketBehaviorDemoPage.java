@@ -14,28 +14,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wicketinaction.charts;
+package com.wicketinaction;
 
-import org.apache.wicket.markup.head.IHeaderResponse;
-import org.apache.wicket.markup.head.JavaScriptHeaderItem;
-import org.apache.wicket.markup.html.panel.Panel;
+import com.wicketinaction.charts.ChartUpdater;
+import com.wicketinaction.charts.WebSocketChart;
+import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.protocol.ws.api.WebSocketBehavior;
+import org.apache.wicket.protocol.ws.api.message.ConnectedMessage;
 
-/**
- * A panel that initializes a Google Line chart and uses WebSocketBehavior to register an asynchronous
- * task that will push some data through the web socket connection.
- */
-public class WebSocketChart extends Panel
+//@RequireHttps
+public class WebSocketBehaviorDemoPage extends WebPage
 {
-	public WebSocketChart(final String id)
+	public WebSocketBehaviorDemoPage()
 	{
-		super(id);
-	}
+		WebSocketChart chartPanel = new WebSocketChart("chartPanel");
+		chartPanel.add(new WebSocketBehavior()
+		{
+			@Override
+			protected void onConnect(ConnectedMessage message)
+			{
+				super.onConnect(message);
 
-	@Override
-	public void renderHead(IHeaderResponse response)
-	{
-		super.renderHead(response);
-		response.render(JavaScriptHeaderItem.forReference(new ChartsResourceReference()));
+				ChartUpdater.start(message);
+			}
+		});
+		add(chartPanel);
 	}
-
 }

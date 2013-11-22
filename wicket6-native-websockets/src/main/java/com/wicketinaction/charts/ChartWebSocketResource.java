@@ -16,26 +16,21 @@
  */
 package com.wicketinaction.charts;
 
-import org.apache.wicket.markup.head.IHeaderResponse;
-import org.apache.wicket.markup.head.JavaScriptHeaderItem;
-import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.protocol.ws.api.WebSocketResource;
+import org.apache.wicket.protocol.ws.api.message.ConnectedMessage;
 
 /**
- * A panel that initializes a Google Line chart and uses WebSocketBehavior to register an asynchronous
- * task that will push some data through the web socket connection.
+ *
  */
-public class WebSocketChart extends Panel
+public class ChartWebSocketResource extends WebSocketResource
 {
-	public WebSocketChart(final String id)
-	{
-		super(id);
-	}
+	public static final String NAME = ChartWebSocketResource.class.getName();
 
 	@Override
-	public void renderHead(IHeaderResponse response)
+	protected void onConnect(ConnectedMessage message)
 	{
-		super.renderHead(response);
-		response.render(JavaScriptHeaderItem.forReference(new ChartsResourceReference()));
-	}
+		super.onConnect(message);
 
+		ChartUpdater.start(message);
+	}
 }
