@@ -8,8 +8,9 @@ var $ = require('gulp-load-plugins')();
 /**
  * Some constants to save some typing later
  */
-var webappPath = 'src/main/webapp/',
-    resources  = 'src/main/resources/';
+var webappPath     = 'src/main/webapp/',
+    resourcesPath  = 'src/main/resources/',
+    generatedPath  = 'target/classes/';
 
 /**
  * Compiles all .less resources in the classpath to .css
@@ -18,9 +19,9 @@ var webappPath = 'src/main/webapp/',
  *   response.render(CssHeaderItem.forReference(new CssResourceReference(HomePage.class, "res/demo.css")));
  */
 gulp.task('stylesInPackages', function () {
-    return gulp.src(resources + '/**/*.less')
+    return gulp.src(resourcesPath + '/**/*.less')
     .pipe($.less())
-    .pipe(gulp.dest('target/classes/'));
+    .pipe(gulp.dest(generatedPath));
 });
 
 /**
@@ -47,13 +48,13 @@ gulp.task('styles', ['stylesInWebapp', 'stylesInPackages']);
  * will pick them up automatically in DEPLOYMENT mode
  */
 gulp.task('scripts', function () {
-    return gulp.src(resources + '/**/*.js')
+    return gulp.src(resourcesPath + '/**/*.js')
         .pipe($.jshint())
         .pipe($.jshint.reporter(require('jshint-stylish')))
 //        .pipe($.jshint.reporter('fail'))  // uncomment to make the build fail when their is a warning
         .pipe($.rename({suffix: '.min'}))
         .pipe($.uglify())
-        .pipe(gulp.dest('target/classes/'));
+        .pipe(gulp.dest(generatedPath));
 });
 
 /**
@@ -79,4 +80,14 @@ gulp.task('build', ['styles', 'scripts']);
  */
 gulp.task('default', ['clean'], function () {
     gulp.start('build');
+});
+
+/**
+ * Watch for modifications in Less and JavaScript resources and
+ * recompile/jshint them
+ * Usage: $ gulp watch
+ */
+gulp.task('watch', function () {
+    gulp.watch(resourcesPath + '**/*.less', ['stylesInPackages']);
+    gulp.watch(resourcesPath + '**/*.js', ['scripts']);
 });

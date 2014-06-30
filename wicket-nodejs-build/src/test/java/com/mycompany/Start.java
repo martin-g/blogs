@@ -1,5 +1,6 @@
 package com.mycompany;
 
+import net_alchim31_livereload.LRServer;
 import org.apache.wicket.util.time.Duration;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.bio.SocketConnector;
@@ -7,6 +8,9 @@ import org.eclipse.jetty.server.ssl.SslSocketConnector;
 import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.util.ssl.SslContextFactory;
 import org.eclipse.jetty.webapp.WebAppContext;
+
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 
 public class Start {
     public static void main(String[] args) throws Exception {
@@ -64,8 +68,18 @@ public class Start {
         try {
             System.out.println(">>> STARTING EMBEDDED JETTY SERVER, PRESS ANY KEY TO STOP");
             server.start();
+            int port = 35729;
+
+            // https://github.com/davidB/livereload-jvm
+            // reload the page when there are changes in the classpath
+            // the idea is to watch for Less/JS modification
+            // TODO probably it will mess with normal Java classes. Investigate!
+            Path docroot = FileSystems.getDefault().getPath(".").resolve("target/classes/");
+            LRServer lrServer = new LRServer(port, docroot);
+            lrServer.start();
             System.in.read();
             System.out.println(">>> STOPPING EMBEDDED JETTY SERVER");
+            lrServer.stop();
             server.stop();
             server.join();
         } catch (Exception e) {
