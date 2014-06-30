@@ -17,13 +17,17 @@ public class HomePage extends WebPage {
 
 		add(new Label("version", getApplication().getFrameworkSettings().getVersion()));
 
-    }
+	}
 
-    @Override
-    public void renderHead(IHeaderResponse response) {
-        super.renderHead(response);
+	@Override
+	public void renderHead(IHeaderResponse response) {
+		super.renderHead(response);
 
-        response.render(CssHeaderItem.forReference(new CssResourceReference(HomePage.class, "res/demo.css")));
-        response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(HomePage.class, "res/demo.js")));
-    }
+		// demo.css is compiled at build time by gulp-less plugin
+		response.render(CssHeaderItem.forReference(new CssResourceReference(HomePage.class, "res/demo.css")));
+
+		// demo.js is JSHint-ed and Uglify-ed at build time
+		// in DEPLOYMENT mode Wicket will load demo.min.js
+		response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(HomePage.class, "res/demo.js")));
+	}
 }

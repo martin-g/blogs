@@ -14,15 +14,13 @@ var webappPath = 'src/main/webapp/',
 /**
  * Compiles all .less resources in the classpath to .css
  * and saves the CSS in target/classes.
- * In Wicket code just use somthing like:
+ * In Wicket code just use something like:
  *   response.render(CssHeaderItem.forReference(new CssResourceReference(HomePage.class, "res/demo.css")));
  */
 gulp.task('stylesInPackages', function () {
     return gulp.src(resources + '/**/*.less')
     .pipe($.less())
-    .pipe($.autoprefixer('last 1 version'))
-    .pipe(gulp.dest('target/classes/'))
-    .pipe($.size());
+    .pipe(gulp.dest('target/classes/'));
 });
 
 /**
@@ -34,9 +32,7 @@ gulp.task('stylesInPackages', function () {
 gulp.task('stylesInWebapp', function () {
     return gulp.src(webappPath + '**/*.less')
         .pipe($.less())
-        .pipe($.autoprefixer('last 1 version'))
-        .pipe(gulp.dest(webappPath))
-        .pipe($.size());
+        .pipe(gulp.dest(webappPath));
 });
 
 /**
@@ -54,10 +50,10 @@ gulp.task('scripts', function () {
     return gulp.src(resources + '/**/*.js')
         .pipe($.jshint())
         .pipe($.jshint.reporter(require('jshint-stylish')))
+//        .pipe($.jshint.reporter('fail'))  // uncomment to make the build fail when their is a warning
         .pipe($.rename({suffix: '.min'}))
         .pipe($.uglify())
-        .pipe(gulp.dest('target/classes/'))
-        .pipe($.size());
+        .pipe(gulp.dest('target/classes/'));
 });
 
 /**
