@@ -17,7 +17,8 @@
 		<module>functional-qunit</module>
 		<module>wicket6-replace-with-effect</module>
 		<module>wicket-nodejs-build</module>
-	</modules>
+	    <module>ajax-history</module>
+  	</modules>
 	<build>
     	<pluginManagement>
     		<plugins>
